@@ -1,4 +1,3 @@
-import os
 path = "./GSP/txt/CombinROI#1.txt"
 f = None
 length = 0
@@ -20,4 +19,7 @@ ResultList = []
 Fitness = DataList[-1]
 for i in range(NumOfGroups):
     ResultList.append(DataList[i])
-print(ResultList)
+def getResult():
+    return ResultList
+def getFitness():
+    return Fitness
