@@ -1,11 +1,12 @@
 import os
-path = "./txt/CombinROI#1.txt"
+path = "./GSP/txt/CombinROI#1.txt"
 f = None
 length = 0
 DataList = []
 try:
     f = open(path, 'r')
     for line in f.readlines():
+        print(line)
         DataList.append(line)
         length += 1
 except IOError:
