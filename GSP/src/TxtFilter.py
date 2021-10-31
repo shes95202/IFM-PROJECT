@@ -6,7 +6,6 @@ DataList = []
 try:
     f = open(path, 'r')
     for line in f.readlines():
-        print(line)
         DataList.append(line)
         length += 1
 except IOError:
@@ -16,9 +15,9 @@ except IOError:
 finally:
     if f:
         f.close()
-# NumOfGroups = length-1
-# ResultList = []
-# Fitness = DataList[-1]
-# for i in range(NumOfGroups):
-#     ResultList.append(DataList[i])
-# print(ResultList)
+NumOfGroups = length-1
+ResultList = []
+Fitness = DataList[-1]
+for i in range(NumOfGroups):
+    ResultList.append(DataList[i])
+print(ResultList)
