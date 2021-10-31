@@ -1,0 +1,11 @@
+USE GSP;
+CREATE TABLE Results(
+	ID CHAR(4) NOT NULL PRIMARY KEY,
+	maxCapital INT NOT NULL,
+	numberOfCom INT NOT NULL,
+	maxUnit INT NOT NULL,
+	numberOfGroups INT NOT NULL,
+	result VARCHAR(4000) NOT NULL,
+	fitness VARCHAR(4000) NOT NULL
+);
+DESCRIBE Results;
