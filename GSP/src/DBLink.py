@@ -4,7 +4,7 @@ dbSettingIncludeDB = {
     "host": "hourent.asuscomm.com",
     "port": 3306,
     "user": "107AB0042",
-    "password": "95202shes",
+    "password": "107-Ab0042",
     "db": "GSP",
     "charset": "utf8"
 }
