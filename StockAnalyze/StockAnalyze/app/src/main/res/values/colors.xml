@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF2D2D</color>
+    <color name="green">#02C874</color>
+    <color name="background">#eef3f6</color>
+    <color name="myBackground">#d3dde4</color>
+
+    <color name="darkGray">#5B5B5B</color>
+    <color name="hotsTitle">#BEBEBE</color>
+
+    <color name="textSelect">#8e93d2</color>
+    <color name="textUnSelect">#c8ced2</color>
+    <color name="backgroundSelect">#ffffff</color>
+    <color name="stockNameColor">#050505</color>
+    <color name="stockNumColor">#989797</color>
+</resources>
