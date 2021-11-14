@@ -8,6 +8,7 @@ import json
 import re
 import os
 from tqdm import trange
+import gc
 
 def stock_select(cursor):
 
@@ -15,7 +16,7 @@ def stock_select(cursor):
     cursor.execute(command)
     stock_number = cursor.fetchall()
     stock_number = pd.DataFrame(stock_number, columns=['stock_ID', 'stock_name'])
-    for n in range(5, len(stock_number['stock_ID'])):
+    for n in range(6, len(stock_number['stock_ID'])):
         try:
             hy(cursor, stock_number['stock_ID'][n], stock_number['stock_name'][n])
         except Exception as e:
@@ -430,6 +431,9 @@ if __name__ == '__main__':
     conn = pymysql.connect(**db_settings)
     cursor = conn.cursor()
     stock_select(cursor)
+    cursor.close()
+    conn.close()
+    gc.collect()
     # create_table()
 
 # print()

@@ -9,6 +9,7 @@ from sklearn import ensemble
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import classification_report,confusion_matrix
+import gc
 
 def stock_select(cursor):
 
@@ -18,10 +19,10 @@ def stock_select(cursor):
     stock_number = pd.DataFrame(stock_number, columns=['stock_ID', 'stock_name'])
     for n in range(0, len(stock_number['stock_ID'])):
         Sklearn_Deal(cursor, stock_number['stock_ID'][n])
-        #try:
-            #Sklearn_Deal(cursor, stock_number['stock_ID'][n])
-        #except Exception as e:
-           # print(stock_number['stock_ID'][n],e)
+        try:
+            Sklearn_Deal(cursor, stock_number['stock_ID'][n])
+        except Exception as e:
+           print(stock_number['stock_ID'][n],e)
 
 def Sklearn_Deal(cursor, stock_ID):
     Data_File = f"""
@@ -47,14 +48,14 @@ def Sklearn_Deal(cursor, stock_ID):
     rf.fit(X_train, y_train.ravel())
 
     # 套袋模型調參
-    #bagg_param_grid = {'n_estimators':[10,25,50,75,100], 'max_samples':[1], 'max_features':[1], 'n_jobs':[1]}
-    #bagg_forest_reg = ensemble.BaggingClassifier()
-    #bagg_grid_search = GridSearchCV(bagg_forest_reg, bagg_param_grid, cv=5, scoring='neg_mean_squared_error')
-    #bagg_grid_search.fit(X_train, y_train.ravel())
-    #bagg_result = bagg_grid_search.best_params_
+    bagg_param_grid = {'n_estimators':[8,9,10,11,12]} # 'max_samples':[1], 'max_features':[1], 'n_jobs':[1]
+    bagg_forest_reg = ensemble.BaggingClassifier()
+    bagg_grid_search = GridSearchCV(bagg_forest_reg, bagg_param_grid, cv=5, scoring='neg_mean_squared_error')
+    bagg_grid_search.fit(X_train, y_train.ravel())
+    bagg_result = bagg_grid_search.best_params_
 
-    #bag = ensemble.BaggingClassifier(n_estimators = bagg_result['n_estimators'], max_samples = bagg_result['max_samples'], max_features = bagg_result['max_features'], n_jobs = bagg_result['n_jobs'])
-    #bag.fit(X_train, y_train.ravel())
+    bag = ensemble.BaggingClassifier(n_estimators = bagg_result['n_estimators']) # max_samples = bagg_result['max_samples'], max_features = bagg_result['max_features'], n_jobs = bagg_result['n_jobs']
+    bag.fit(X_train, y_train.ravel())
 
     # 決策樹調參
     tg_param_grid = {'criterion':["gini"], 'max_depth':[10,11,12,13,14,15], 'min_samples_split':[2,3,4], 'splitter': ["random"]}
@@ -77,12 +78,12 @@ def Sklearn_Deal(cursor, stock_ID):
     Ada.fit(X_train, y_train.ravel())
     
     eclfg_param_grid = {'weights':[[1,2,3],[2,3,1],[3,2,1],[2,1,3]]}
-    eclfg_forest_reg = ensemble.VotingClassifier(estimators=[('rf', rf), ('tg', tg), ('Ada', Ada)], voting='soft')
+    eclfg_forest_reg = ensemble.VotingClassifier(estimators=[('rf', rf), ('bag', bag), ('Ada', Ada)], voting='soft')
     eclfg_grid_search = GridSearchCV(eclfg_forest_reg, eclfg_param_grid, cv=5, scoring='neg_mean_squared_error')
     eclfg_grid_search.fit(X_train, y_train.ravel())
     eclfg_result = eclfg_grid_search.best_params_
     
-    eclf = ensemble.VotingClassifier(estimators=[('rf', rf), ('tg', tg), ('Ada', Ada)], voting='soft', weights = eclfg_result['weights'])
+    eclf = ensemble.VotingClassifier(estimators=[('rf', rf), ('tg', tg), ('bag', bag)], voting='soft', weights = eclfg_result['weights'])
     eclf.fit(X_train, y_train.ravel())
 
     today_file = [[Data_File['News_Score'][len(Data_File)-1], Data_File['MA5_Score'][len(Data_File)-1], Data_File['MA30_Score'][len(Data_File)-1], Data_File['MA60_Score'][len(Data_File)-1], Data_File['RSI_Score'][len(Data_File)-1], Data_File['BBAND_Score'][len(Data_File)-1], Data_File['MACD_Score'][len(Data_File)-1], Data_File['TD_Score'][len(Data_File)-1]]]
@@ -92,8 +93,9 @@ def Sklearn_Deal(cursor, stock_ID):
     print("rf訓練資料分數：",rf.score(X_train,y_train))
     print("rf測試資料分數：",rf.score(X_validation,y_validation))
     print('rfg',rfg_result)
-    #print("bag訓練資料分數：",bag.score(X_train,y_train))
-    #print("bag測試資料分數：",bag.score(X_validation,y_validation))
+    print("bag訓練資料分數：",bag.score(X_train,y_train))
+    print("bag測試資料分數：",bag.score(X_validation,y_validation))
+    print('bag',bagg_result)
     print("tg訓練資料分數：",tg.score(X_train,y_train))
     print("tg測試資料分數：",tg.score(X_validation,y_validation))
     print('tg',tg_result)
@@ -133,3 +135,6 @@ if __name__ == '__main__':
     conn = pymysql.connect(**db_settings)
     cursor = conn.cursor()
     stock_select(cursor)
+    cursor.close()
+    conn.close()
+    gc.collect()
