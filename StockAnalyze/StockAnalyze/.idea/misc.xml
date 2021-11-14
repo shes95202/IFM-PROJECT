@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.4765625" />
+        <entry key="app/src/main/res/drawable/button_style.xml" value="0.5509259259259259" />
+        <entry key="app/src/main/res/drawable/cell_product_bg_style.xml" value="0.4046875" />
+        <entry key="app/src/main/res/drawable/cell_recommend_bg_style.xml" value="0.478125" />
+        <entry key="app/src/main/res/drawable/change_button_style.xml" value="0.478125" />
+        <entry key="app/src/main/res/drawable/detail_down_background_style.xml" value="0.353125" />
+        <entry key="app/src/main/res/drawable/detail_none_background_style.xml" value="0.353125" />
+        <entry key="app/src/main/res/drawable/detail_up_background_style.xml" value="0.353125" />
+        <entry key="app/src/main/res/drawable/edit_style.xml" value="0.3921875" />
+        <entry key="app/src/main/res/drawable/nav_bottom_color.xml" value="0.3861538461538462" />
+        <entry key="app/src/main/res/drawable/progressbar_background_style.xml" value="0.47760416666666666" />
+        <entry key="app/src/main/res/drawable/search_background_style.xml" value="0.3707692307692308" />
+        <entry key="app/src/main/res/drawable/search_icon.xml" value="0.3707692307692308" />
+        <entry key="app/src/main/res/drawable/spinner_down_icon.xml" value="0.3921875" />
+        <entry key="app/src/main/res/drawable/spinner_style.xml" value="0.3921875" />
+        <entry key="app/src/main/res/drawable/tablayout_indicator_style.xml" value="0.5509259259259259" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/cell_detail.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/cell_group.xml" value="0.3759057971014493" />
+        <entry key="app/src/main/res/layout/cell_hotspots.xml" value="0.2471395881006865" />
+        <entry key="app/src/main/res/layout/cell_recommend.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/dialog_add.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/dialog_deleted.xml" value="0.46145833333333336" />
+        <entry key="app/src/main/res/layout/dialog_progressbar.xml" value="0.5151041666666667" />
+        <entry key="app/src/main/res/layout/frag_detail.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/frag_hots.xml" value="0.33697916666666666" />
+        <entry key="app/src/main/res/layout/frag_hotspots.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/frag_my_group.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/frag_recommend.xml" value="0.23541666666666666" />
+        <entry key="app/src/main/res/layout/frag_search.xml" value="0.33697916666666666" />
+        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.254981884057971" />
+        <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.2604166666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

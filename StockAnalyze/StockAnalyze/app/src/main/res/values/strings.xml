@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StockAnalyze</string>
+    <string name="item0">熱門股</string>
+    <string name="item1">個股\n搜尋</string>
+    <string name="item2">組合\n推薦</string>
+    <string name="item3">我的\n組合</string>
+</resources>

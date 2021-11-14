@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cell_hotspots_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.36" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_L2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.68" />
+
+        <TextView
+            android:id="@+id/cell_hotspots_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="股票名稱"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="@color/stockNameColor"
+            android:textSize="@dimen/sp22"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_L"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cell_hotspots_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="股票代號"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/stockNameColor"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cell_hotspots_name"
+            app:layout_constraintStart_toStartOf="@+id/cell_hotspots_name"
+            app:layout_constraintTop_toBottomOf="@+id/cell_hotspots_name" />
+
+        <TextView
+            android:id="@+id/cell_hotspots_shortLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="狀態"
+            android:textColor="@color/stockNameColor"
+            android:textSize="@dimen/sp22"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_L2"
+            app:layout_constraintStart_toStartOf="@+id/guideline_L"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cell_hotspots_longLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="狀態"
+            android:textColor="@color/stockNameColor"
+            android:textSize="@dimen/sp22"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_L2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cell_hotspots_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/darkGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
