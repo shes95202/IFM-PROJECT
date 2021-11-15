@@ -297,7 +297,7 @@ def news_tec_merge(stocks_file, s_i): # 新聞與技術分析資料整合
         elif RSI[rsi_data-1] <= 20:
             RSI_Answer.append(1)
         elif RSI[rsi_data-1]>RSI[rsi_data-2]:
-            RSI_Answer.append(1)
+            RSI_Answer.append(1)          
         elif RSI[rsi_data-1]<RSI[rsi_data-2]:
             RSI_Answer.append(-1)
         else:

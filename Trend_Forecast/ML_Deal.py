@@ -9,22 +9,30 @@ from sklearn import ensemble
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import classification_report,confusion_matrix
+import datetime
 import gc
 
 def stock_select(cursor):
 
+    today = datetime.datetime.today()
+    today = datetime.datetime.strftime(today, "%Y/%m/%d %H:%M:%S")
+    today = datetime.datetime.strptime(today, "%Y/%m/%d %H:%M:%S")
     command = f"""SELECT stock_ID, stock_name FROM stock.stock_top_30"""
     cursor.execute(command)
     stock_number = cursor.fetchall()
     stock_number = pd.DataFrame(stock_number, columns=['stock_ID', 'stock_name'])
+    check = 1
+    count = 1
+    answer_ele_list = ['綜合評估', 'MA5', 'MA30', 'MA60', 'RSI', 'MACD', '布林通道', '九轉序列', '新聞情感']
     for n in range(0, len(stock_number['stock_ID'])):
-        Sklearn_Deal(cursor, stock_number['stock_ID'][n])
         try:
-            Sklearn_Deal(cursor, stock_number['stock_ID'][n])
+            Sklearn_Deal(cursor, stock_number['stock_ID'][n], stock_number['stock_name'][n], today, check, answer_ele_list, count)
+            check = check + 9
+            count = count + 1
         except Exception as e:
            print(stock_number['stock_ID'][n],e)
 
-def Sklearn_Deal(cursor, stock_ID):
+def Sklearn_Deal(cursor, stock_ID, stock_name, today, check, answer_ele_list, count):
     Data_File = f"""
                 SELECT News_Score, MA5_Score, MA30_Score, MA60_Score, RSI_Score, BBAND_Score, MACD_Score, TD_Score, UpDown_Trend
                 FROM news_score.Final_Score_{stock_ID} WHERE Date_ID >= '2020-01-01'
@@ -106,13 +114,32 @@ def Sklearn_Deal(cursor, stock_ID):
     print("eclf測試資料分數：",eclf.score(X_validation,y_validation))
     print('eclf',eclfg_result)
 
-    final_insert_command = f"""
-    REPLACE INTO news_score.Final_Forecast_Score(Date_ID, News_Score, MA5_Score, MA30_Score, MA60_Score, RSI_Score, BBAND_Score, MACD_Score, TD_Score, Forecast_Trend)
-    VALUES({stock_ID},{Data_File['News_Score'][len(Data_File)-1]}, {Data_File['MA5_Score'][len(Data_File)-1]}, {Data_File['MA30_Score'][len(Data_File)-1]}, {Data_File['MA60_Score'][len(Data_File)-1]}, {Data_File['RSI_Score'][len(Data_File)-1]}, {Data_File['BBAND_Score'][len(Data_File)-1]}, {Data_File['MACD_Score'][len(Data_File)-1]}, {Data_File['TD_Score'][len(Data_File)-1]}, {y_pred[0]})
-    """
-    print(final_insert_command)
-    cursor.execute(final_insert_command)
-    conn.commit()
+    answer_list = [y_pred[0], Data_File['MA5_Score'][len(Data_File)-1], Data_File['MA30_Score'][len(Data_File)-1], Data_File['MA60_Score'][len(Data_File)-1], Data_File['RSI_Score'][len(Data_File)-1], Data_File['MACD_Score'][len(Data_File)-1], Data_File['BBAND_Score'][len(Data_File)-1], Data_File['TD_Score'][len(Data_File)-1], Data_File['News_Score'][len(Data_File)-1]]
+    for i in range(len(answer_list)):
+        now_ele_answer = answer_list[i]
+        if now_ele_answer == 1.0:
+            now_ele_answer = '上漲'
+        elif now_ele_answer == -1.0:
+            now_ele_answer = '下跌'
+        else:
+            now_ele_answer = '無影響'
+
+        final_insert_command = f"""
+        REPLACE INTO APP.stock_short_profit(pk, company_name, stock_symbol, name, `result`, date_time)
+        VALUES({check+i}, '{stock_name}', {stock_ID}, '{answer_ele_list[i]}', '{now_ele_answer}', '{today}')
+        """
+        # print(final_insert_command)
+        cursor.execute(final_insert_command)
+        conn.commit()
+
+        final_group_info = f"""
+        UPDATE APP.stock_group_info
+        SET short_profit = {now_ele_answer}
+        WHERE pk = {count}
+        """
+
+        cursor.execute(final_group_info)
+        conn.commit()
 
     #print('真實數字:')
     #print(y_validation)
