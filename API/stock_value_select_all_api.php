@@ -5,8 +5,8 @@
 */
 $data_arr = array();
 
-// $conn = new PDO("mysql:host=localhost;dbname=YCT_test","ma430104","75147514");//測試
-$conn = new PDO("mysql:host=localhost;dbname=APP","root","Domain-0042");
+$conn = new PDO("mysql:host=localhost;dbname=APP","root","Domain-0042");//測試
+//$conn = new PDO("mysql:host=localhost;dbname=android","admin","aefdu6359783");
 $conn -> exec("SET CHARACTER SET utf8");
 $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

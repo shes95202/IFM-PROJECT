@@ -19,7 +19,7 @@ $total_row = $sql_ -> rowCount();
 
 if($total_row == 0)
 {
-	$null_data = ["userId" => "null", "company_name" => "null", "stock_symbol" => "null", "stock_cost" => "null", "stock_count" => "null", "total" => "null"];
+	$null_data = ["userId" => "null", "company_name" => "null", "stock_symbol" => "null", "stock_cost" => "null", "now_cost" => "null", "stock_count" => "null", "total" => "null"];
 	array_push($data_arr,$null_data);
 	$json_display = ["data" => $data_arr];
 	$display = json_encode($json_display, JSON_UNESCAPED_UNICODE);
@@ -34,7 +34,7 @@ $information_1 = $sql_ -> fetchAll(PDO::FETCH_NUM);
 
 foreach($information_1 as $rs)
 {
-	$json_display = ["userId" => $rs[1], "company_name" => $rs[2], "stock_symbol" => $rs[3], "stock_cost" => $rs[4], "stock_count" => $rs[5], "total" => $rs[6]];
+	$json_display = ["userId" => $rs[1], "company_name" => $rs[2], "stock_symbol" => $rs[3], "stock_cost" => $rs[4], "now_cost" => $rs[5],"stock_count" => $rs[6], "total" => $rs[7]];
 	array_push($data_arr,$json_display);
 }
 $json_display = ["data" => $data_arr];

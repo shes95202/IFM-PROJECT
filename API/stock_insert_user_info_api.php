@@ -29,10 +29,11 @@ try
 		$stockName = $act -> stockName;
 		$stockNum = $act -> stockNum;
         $stock_cost = $act -> stock_cost;
+        $now_cost = $act -> now_cost;
         $stock_count = $act -> stock_count;
 		$total = $act -> total;
-		$sth_2 = $conn -> prepare("INSERT INTO user_info (userId,company_name,stock_symbol,stock_cost,stock_count,total) VALUES (?,?,?,?,?,?)");
-		$sth_2 -> execute(array($userId,$stockName,$stockNum,$stock_cost,$stock_count,$total));
+		$sth_2 = $conn -> prepare("INSERT INTO user_info (userId,company_name,stock_symbol,stock_cost,now_cost,stock_count,total) VALUES (?,?,?,?,?,?,?)");
+		$sth_2 -> execute(array($userId,$stockName,$stockNum,$stock_cost,$now_cost,$stock_count,$total));
 	}
 }
 catch(PDOException $e)
